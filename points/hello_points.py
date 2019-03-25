@@ -20,7 +20,6 @@ def main():
         point_set.points.append(point)
 
     sys.stdout.write(str(point_set))
-    sys.stdout.write("\n")
 
 
 if __name__ == "__main__":
