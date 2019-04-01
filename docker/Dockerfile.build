@@ -1,0 +1,8 @@
+FROM python
+
+RUN apt-get update
+RUN apt-get -y install python3-pip
+RUN mkdir -p /opt/points
+COPY ./ /opt/points
+WORKDIR /opt/points
+RUN python setup.py install

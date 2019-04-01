@@ -1,3 +1,4 @@
+import json
 
 class Point(object):
     def __init__(self):
@@ -11,3 +12,25 @@ class Point(object):
 
     def __str__(self):
         return self.__repr__(self)
+
+    def to_json_dict(self):
+        return {
+            "point_set_id": self.point_set_id,
+            "x": self.x,
+            "y": self.y,
+            "z": self.z
+        }
+
+    def from_dict(data):
+        p = Point()
+        p.point_set_id = data["point_set_id"]
+        p.x = data["x"]
+        p.y = data["y"]
+        p.z = data["z"]
+
+        return p
+
+    def from_json_string(data):
+        dictionary = json.loads(data)
+        p = Point.from_dict(dictionary)
+        return p
