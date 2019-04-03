@@ -15,3 +15,7 @@ def datetime_to_string(dt):
 def string_to_datetime(s):
     return parser.parse(s)
 
+
+def is_empty_string(inArg):
+    return inArg is None or inArg.strip() == ""
+

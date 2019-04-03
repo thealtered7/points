@@ -11,4 +11,8 @@ class TestDatetime(unittest.TestCase):
         print(now_string)
         self.assertEqual(now, now_time, "expected dates to parse and un-parse")
 
-
+    def test_is_empty_string(self):
+        self.assertTrue(point_utils.is_empty_string(None), "None should be an empty string")
+        self.assertTrue(point_utils.is_empty_string(""), "'' should be an empty string")
+        self.assertTrue(point_utils.is_empty_string("  "), "'  ' should be an empty string")
+        self.assertFalse(point_utils.is_empty_string("I am not empty"), "populated string should not be empty")
