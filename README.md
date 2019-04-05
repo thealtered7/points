@@ -44,7 +44,8 @@ Hook up python to postgres problem
   + Work done on branch ADD_SQL_ALCHEMY
 + Install psycopg2: pip3 install psycopg2
   + installed version psycopg2-2.7.7
-
++ Built a basic dao using the raw pscopg2 driver. 
+  + docker run python-points hello_postgres
 
 
 
