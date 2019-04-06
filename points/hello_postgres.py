@@ -93,7 +93,7 @@ def create_random_points(num_points, scale=100):
     return point_list
 
 def main():
-    config = pg_config.Config.from_env(pg_config.get_development_env())
+    config = pg_config.Config.from_env(os.environ)
     session = pg.connect("host={host} user={username} password={password} dbname={database}".format_map({"host": config.host,
                                                                                                          "username": config.username,
                                                                                                          "password": config.password,

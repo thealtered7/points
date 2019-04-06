@@ -46,6 +46,18 @@ Hook up python to postgres problem
   + installed version psycopg2-2.7.7
 + Built a basic dao using the raw pscopg2 driver. 
   + docker run python-points hello_postgres
+  
+New Problem: Connecting the python container to the postgres container
++ To get the ip address of the postgres container run: 
+docker network inspect bridge
++ To run the stub program 
+docker run \
+-e "PGPORT=5432" \
+-e "PGHOST=172.17.0.2" \
+-e "PGUSER=postgres" \
+-e "PGPASSWORD=fart" \
+-e "PGDATABASE=points" \
+python-points  hello_postgres
 
 
 
