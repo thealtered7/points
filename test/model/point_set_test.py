@@ -3,6 +3,7 @@ import points.model.point_set as point_set
 import points.model.utils as point_utils
 import unittest
 
+
 class TestPointSet(unittest.TestCase):
 
     def test_point_set_number_of_points(self):
@@ -71,3 +72,32 @@ class TestPointSet(unittest.TestCase):
         self.assertEqual([p.y for p in ps.points], [4.2, 4.3], "expected the y values to match")
         self.assertEqual([p.z for p in ps.points], [54.3, 54.5], "expected the z values to match")
 
+    def test_point_set_from_json(self):
+        json_string = """{
+        "id": 34,
+        "created": "2019-04-03T06:03:46.539289",
+        "name": "unit test point set",
+        "points": [
+               {
+                    "x": 3.4,
+                    "y": 4.2,
+                    "z": 54.3,
+                    "point_set_id": 34
+                },
+                {
+                    "x": 3.6,
+                    "y": 4.3,
+                    "z": 54.5,
+                    "point_set_id": 34
+                }
+        ]
+        }
+        """
+        ps = point_set.PointSet.from_json(json_string)
+        self.assertEqual(ps.id, 34, "expected id to match")
+        self.assertEqual(ps.name, "unit test point set", "expected name to match")
+        self.assertEqual(ps.number_of_points(), 2, "expected point count to match")
+        self.assertEqual([p.point_set_id for p in ps.points], [34, 34], "expected the point set ids to match")
+        self.assertEqual([p.x for p in ps.points], [3.4, 3.6], "expected the x values to match")
+        self.assertEqual([p.y for p in ps.points], [4.2, 4.3], "expected the y values to match")
+        self.assertEqual([p.z for p in ps.points], [54.3, 54.5], "expected the z values to match")

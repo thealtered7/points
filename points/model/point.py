@@ -21,6 +21,10 @@ class Point(object):
             "z": self.z
         }
 
+    def set_point_set_id(self, id):
+        self.point_set_id = id
+        return self
+
     def from_dict(data):
         p = Point()
         p.point_set_id = data["point_set_id"]

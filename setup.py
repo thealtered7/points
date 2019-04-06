@@ -126,7 +126,7 @@ setup(
     #
     #py_modules=["points"],
     #
-    packages=['points', 'points.model'],
+    packages=['points', 'points.model', 'points.pg'],
 
     # Specify which Python versions you support. In contrast to the
     # 'Programming Language' classifiers above, 'pip install' will check this
@@ -179,10 +179,11 @@ setup(
     #
     # For example, the following would provide a command called `sample` which
     # executes the function `main` from this package when invoked:
-    entry_points={  # Optional
-        'console_scripts': [
-            'hello_points=points.hello_points:main',
-        ],
+    entry_points={
+       'console_scripts': [
+         'hello_points=points.hello_points:main',
+         'hello_postgres=points.hello_postgres:main'
+    ],
     },
 
     # List additional URLs that are relevant to your project as a dict.

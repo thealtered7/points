@@ -32,3 +32,20 @@ JSON interface AND Test Functionality
 + Write functions to create Point and PointSet from json data
 + Use the python unit testing framework to unit test the json input, output functions
 
+Hook up python to postgres problem
++ Docker container exists and is called postgres-points
++ to build a new image: 
+  docker run -d -p 5432:5432 --name postgres-points -e POSTGRES_PASSWORD=fart postgres
++ to start the container from the image:
+  docker start postgres-points
+  
++ Install SQL Alchemy: pip3 install sqlalchemy
+  + Note that this installed sqlalchemy 1.3.1
+  + Work done on branch ADD_SQL_ALCHEMY
++ Install psycopg2: pip3 install psycopg2
+  + installed version psycopg2-2.7.7
++ Built a basic dao using the raw pscopg2 driver. 
+  + docker run python-points hello_postgres
+
+
+
