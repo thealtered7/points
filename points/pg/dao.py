@@ -31,3 +31,8 @@ class Dao(object):
         ret = s.query(PointSet).filter(PointSet.id == id).one()
         return ret
 
+    def save_or_update_point_set(self, ps: PointSet):
+        s = self.__session_maker()
+        s.add(ps)
+        s.commit()
+        return ps

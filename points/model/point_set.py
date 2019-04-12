@@ -20,7 +20,7 @@ class PointSet(Base):
         Base.__init__(self)
         self.name = ""
         self.created = None
-        self.id = -1
+        self.id = None
         self.points = []
 
     def __repr__(self):

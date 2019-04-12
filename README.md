@@ -60,4 +60,11 @@ SQLAlchemy
 + Built a basic dao using the raw pscopg2 driver. 
   + docker run python-points hello_postgres
 + Wrote hello_sqlalchemy to test orm.  It works!
+  + docker run \
+-e "PGPORT=5432" \
+-e "PGHOST=172.17.0.2" \
+-e "PGUSER=postgres" \
+-e "PGPASSWORD=fart" \
+-e "PGDATABASE=points" \
+python-points  hello_sqlalchemy
 

@@ -19,7 +19,7 @@ class Point(Base):
         self.x = 0.0
         self.y = 0.0
         self.z = 0.0
-        self.id = -1
+        self.id = None
 
     def __repr__(self):
         return ", ".join(["{}: {}".format(k, v) for k, v in self.__dict__.items()])
