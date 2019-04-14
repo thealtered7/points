@@ -2,12 +2,25 @@ import datetime
 import points.model.point as point
 import points.model.utils as p_utils
 import json
+import points.model.base as base
+from sqlalchemy import Column, Integer, String, TIMESTAMP
+from sqlalchemy.orm import relationship, backref
 
-class PointSet(object):
+Base = base.get_base()
+
+
+class PointSet(Base):
+    __tablename__ = "point_set"
+    id = Column(Integer, primary_key=True)
+    created = Column(TIMESTAMP, nullable=False)
+    name = Column(String, nullable=False)
+    points = relationship(point.Point, backref=backref('point', uselist=True, cascade="delete,all"))
+
     def __init__(self):
+        Base.__init__(self)
         self.name = ""
         self.created = None
-        self.id = -1
+        self.id = None
         self.points = []
 
     def __repr__(self):

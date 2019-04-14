@@ -1,11 +1,25 @@
 import json
+import points.model.base as base
+from sqlalchemy import Column, Integer, FLOAT, ForeignKey
 
-class Point(object):
+Base = base.get_base()
+
+
+class Point(Base):
+    __tablename__ = "point"
+    id = Column(Integer, primary_key=True)
+    x = Column(FLOAT)
+    y = Column(FLOAT)
+    z = Column(FLOAT)
+    point_set_id = Column(Integer, ForeignKey('point_set.id'))
+
     def __init__(self):
+        Base.__init__(self)
         self.point_set_id = -1
         self.x = 0.0
         self.y = 0.0
         self.z = 0.0
+        self.id = None
 
     def __repr__(self):
         return ", ".join(["{}: {}".format(k, v) for k, v in self.__dict__.items()])

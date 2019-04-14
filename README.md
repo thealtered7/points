@@ -38,15 +38,7 @@ Hook up python to postgres problem
   docker run -d -p 5432:5432 --name postgres-points -e POSTGRES_PASSWORD=fart postgres
 + to start the container from the image:
   docker start postgres-points
-  
-+ Install SQL Alchemy: pip3 install sqlalchemy
-  + Note that this installed sqlalchemy 1.3.1
-  + Work done on branch ADD_SQL_ALCHEMY
-+ Install psycopg2: pip3 install psycopg2
-  + installed version psycopg2-2.7.7
-+ Built a basic dao using the raw pscopg2 driver. 
-  + docker run python-points hello_postgres
-  
+    
 New Problem: Connecting the python container to the postgres container
 + To get the ip address of the postgres container run: 
 docker network inspect bridge
@@ -59,5 +51,20 @@ docker run \
 -e "PGDATABASE=points" \
 python-points  hello_postgres
 
-
+SQLAlchemy
++ Install SQL Alchemy: pip3 install sqlalchemy
+  + Note that this installed sqlalchemy 1.3.1
+  + Work done on branch ADD_SQL_ALCHEMY
++ Install psycopg2: pip3 install psycopg2
+  + installed version psycopg2-2.7.7
++ Built a basic dao using the raw pscopg2 driver. 
+  + docker run python-points hello_postgres
++ Wrote hello_sqlalchemy to test orm.  It works!
+  + docker run \
+-e "PGPORT=5432" \
+-e "PGHOST=172.17.0.2" \
+-e "PGUSER=postgres" \
+-e "PGPASSWORD=fart" \
+-e "PGDATABASE=points" \
+python-points  hello_sqlalchemy
 
