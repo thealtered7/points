@@ -36,3 +36,8 @@ class Dao(object):
         s.add(ps)
         s.commit()
         return ps
+
+
+
+def create_dao(c: config.Config) -> Dao:
+    return Dao.create_dao(c)

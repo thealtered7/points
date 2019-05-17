@@ -20,7 +20,7 @@ def create_random_points(num_points, scale=100):
 
 def main():
     config = dao_config.Config.from_env(os.environ)
-    dao = dao_module.Dao.create_dao(config)
+    dao = dao_module.create_dao(config)
 
     ps = point_set.PointSet()
     ps.points = create_random_points(10, 10)

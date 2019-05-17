@@ -19,3 +19,20 @@ def string_to_datetime(s):
 def is_empty_string(inArg):
     return inArg is None or inArg.strip() == ""
 
+
+def parse_float_or_none(arg):
+    try:
+        ret = float(arg)
+    except ValueError:
+        ret = None
+
+    return ret
+
+
+def parse_int_or_none(arg):
+    try:
+        ret = int(arg)
+    except ValueError:
+        ret = None
+
+    return ret
