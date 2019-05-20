@@ -3,6 +3,7 @@ from points.model.base import get_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from points.model.point_set import PointSet
+import points.model.map_point as map_point
 
 def create_points_engine(c: config.Config):
     connection_string = c.connect_string()
@@ -36,6 +37,17 @@ class Dao(object):
         s.add(ps)
         s.commit()
         return ps
+
+    def get_gpx_file_by_id(self, id: int):
+        s = self.__session_maker()
+        ret = s.query(map_point.GpxFile).filter(map_point.GpxFile.id == id).one()
+        return ret
+
+    def save_or_update_gpx_file(self, g: map_point.GpxFile):
+        s = self.__session_maker()
+        s.add(g)
+        s.commit()
+        return s
 
 
 

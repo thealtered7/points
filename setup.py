@@ -183,7 +183,8 @@ setup(
        'console_scripts': [
          'hello_points=points.hello_points:main',
          'hello_postgres=points.hello_postgres:main',
-         'hello_sqlalchemy=points.hello_sqlalchemy:main'
+         'hello_sqlalchemy=points.hello_sqlalchemy:main',
+         'parse_gpx_files=points.parse_gpx_files:main'
     ],
     },
 

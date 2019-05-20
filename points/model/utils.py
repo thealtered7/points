@@ -1,5 +1,6 @@
 import datetime
 import dateutil.parser as parser
+import os.path
 
 ISO_8601 = "2008-09-03T20:56:35.450686"
 
@@ -25,6 +26,8 @@ def parse_float_or_none(arg):
         ret = float(arg)
     except ValueError:
         ret = None
+    except TypeError:
+        ret = None
 
     return ret
 
@@ -34,5 +37,13 @@ def parse_int_or_none(arg):
         ret = int(arg)
     except ValueError:
         ret = None
+    except TypeError:
+        ret = None
 
     return ret
+
+
+def get_file_name_from_path(path: str) -> str:
+    return os.path.basename(path)
+
+

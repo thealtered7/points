@@ -31,10 +31,6 @@ class UtilsTest(unittest.TestCase):
         self.assertIsNone(output)
 
     def test_parse_int_or_none(self):
-        input = "11.3"
-        output = utils.parse_int_or_none(input)
-        self.assertEqual(int(input), output)
-
         input = "gjleagj"
         output = utils.parse_int_or_none(input)
         self.assertIsNone(output)

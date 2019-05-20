@@ -10,8 +10,8 @@ class TestPointSet(unittest.TestCase):
         ps = point_set.PointSet()
         self.assertEqual(ps.number_of_points(), 0, "expected number_of_points to be 0 on newly instantiated point_set")
 
-        ps.points = None
-        self.assertEqual(ps.number_of_points(), 0, "expected number_of_points to be 0 on point_set.points is None")
+        ps.points = []
+        self.assertEqual(ps.number_of_points(), 0, "expected number_of_points to be 0 on point_set.points on empty point set")
 
         ps.points = [point.Point()]
         self.assertEqual(ps.number_of_points(), 1, "expected number_of_points to be 1 after adding a point")

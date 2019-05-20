@@ -2,10 +2,13 @@ import unittest
 import xmltodict
 import points.model.map_point as gpx_point
 import json
+import os
+import points.model.utils as utils
 
 class XmlToDictText(unittest.TestCase):
     def test_xmltodict(self):
-        with open("../data/formated.gpx") as input_stream:
+        to_parse = os.environ["DATA_FILE"]
+        with open(to_parse) as input_stream:
             xml_data = input_stream.read(-1)
             xml_dict = xmltodict.parse(xml_data)
             self.assertGreaterEqual(len(xml_dict), 0, "expected xml dictionary to be greater than 0")
@@ -31,9 +34,9 @@ class XmlToDictText(unittest.TestCase):
                     p = gpx_point.GpxPoint()
                     p.longitude = point["@lon"]
                     p.latitude = point["@lat"]
-                    p.altitude = point["ele"]
-                    p.time = point["time"]
-                    p.heading = course
+                    p.elevation = point["ele"]
+                    p.time = utils.string_to_datetime(point["time"])
+                    p.course = course
                     all_points.append(p)
 
             print("number of points parsed {}".format(len(all_points)))
