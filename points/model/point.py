@@ -40,6 +40,7 @@ class Point(Base):
         self.point_set_id = id
         return self
 
+    @staticmethod
     def from_dict(data):
         p = Point()
         p.point_set_id = data["point_set_id"]

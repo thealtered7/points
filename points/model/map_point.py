@@ -1,6 +1,7 @@
 import json
 import points.model.base as base
 import points.model.utils as utils
+import points.model.user as user
 from sqlalchemy import Column, Integer, Float, ForeignKey, TIMESTAMP, String
 from sqlalchemy.orm import relationship, backref
 import xmltodict
@@ -72,7 +73,10 @@ class GpxFile(Base):
     name = Column(String, nullable=False)
     gpx_timestamp = Column(TIMESTAMP, nullable=False)
     parsed_time = Column(TIMESTAMP, nullable=False)
+    hash = Column(String, nullable=True)
     points = relationship(GpxPoint, backref=backref('gpx_point', uselist=True, cascade="delete,all"))
+    user_id = Column(Integer, ForeignKey('users.uuid'))
+
 
     def __init__(self):
         Base.__init__(self)
@@ -84,6 +88,8 @@ class GpxFile(Base):
             "gpx_timestamp": utils.datetime_to_string(self.gpx_timestamp),
             "parsed_time": utils.datetime_to_string(self.parsed_time),
             "points": [u.to_json_dict() for u in self.points],
+            "user_id": self.user_id,
+            "hash": self.hash
         }
 
     def from_dict(data):
@@ -97,6 +103,8 @@ class GpxFile(Base):
         gpx_file.gpx_timestamp = utils.string_to_datetime(data["gpx_timestamp"])
         gpx_file.name = data["name"]
         gpx_file.points = [GpxPoint.from_dict(x) for x in data["points"]]
+        gpx_file.user_id = data["user_id"]
+        gpx_file.hash = data["hash"]
 
         return gpx_file
 
@@ -120,9 +128,11 @@ def find_gpx_files(path):
 
     return gpx_paths
 
-def parse_gpx_file(file_name: str):
+def parse_gpx_file(file_name: str) -> GpxFile:
+    """parse_gpx_file file_name"""
     with open(file_name) as input_stream:
         xml_data = input_stream.read(-1)
+        xml_hash = utils.md5_hash(xml_data.encode('utf-8'))
         xml_dict = xmltodict.parse(xml_data)
         gpx = xml_dict["gpx"]
 
@@ -154,4 +164,5 @@ def parse_gpx_file(file_name: str):
         gpx_file.parsed_time = utils.now()
         gpx_file.gpx_timestamp = utils.string_to_datetime(time_created)
         gpx_file.points = all_points
+        gpx_file.hash = xml_hash
         return gpx_file

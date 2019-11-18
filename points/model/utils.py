@@ -1,6 +1,8 @@
 import datetime
 import dateutil.parser as parser
 import os.path
+import hashlib
+import uuid
 
 ISO_8601 = "2008-09-03T20:56:35.450686"
 
@@ -47,3 +49,22 @@ def get_file_name_from_path(path: str) -> str:
     return os.path.basename(path)
 
 
+def truncate_datetime_to_day(ts: datetime.datetime) -> datetime.datetime:
+    copy = datetime.datetime(ts.year, ts.month, ts.day, 0, 0, 0, 0, ts.tzinfo)
+    return copy
+
+
+def truncate_datetime_to_month(ts: datetime.datetime) -> datetime.datetime:
+    copy = datetime.datetime(ts.year, ts.month, 1, 0, 0, 0, 0, ts.tzinfo)
+    return copy
+
+
+def md5_hash(arg):
+    algo = hashlib.md5()
+    algo.update(arg)
+    digest = algo.digest()
+    return str(digest)
+
+
+def create_uuid_str():
+    return str(uuid.uuid4())
