@@ -132,7 +132,7 @@ def parse_gpx_file(file_name: str) -> GpxFile:
     """parse_gpx_file file_name"""
     with open(file_name) as input_stream:
         xml_data = input_stream.read(-1)
-        xml_hash = utils.md5_hash(xml_data.encode('utf-8'))
+        xml_hash = utils.md5_hash(xml_data)
         xml_dict = xmltodict.parse(xml_data)
         gpx = xml_dict["gpx"]
 

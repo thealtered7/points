@@ -9,6 +9,8 @@ RUN pip3 install numpy
 RUN pip3 install matplotlib
 RUN pip3 install xmltodict
 RUN pip3 install geopy
+RUN pip3 install json-logging
+
 RUN mkdir -p /opt/points
 COPY ./ /opt/points
 WORKDIR /opt/points

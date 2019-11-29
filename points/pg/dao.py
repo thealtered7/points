@@ -37,6 +37,7 @@ class Dao(object):
         try:
             yield session
             session.commit()
+            session.flush()
         except Exception as e:
             session.rollback()
             raise e
@@ -62,6 +63,11 @@ class Dao(object):
     def save_or_update_gpx_file(self, g: map_point.GpxFile):
         with self.session_scope() as s:
             s.add(g)
+            s.commit()
+            s.flush()
+            s.expunge_all()
+
+        return self.get_gpx_file_by_id(g.id)
 
     def get_user(self, **kwargs):
         id = kwargs["id"]
@@ -76,9 +82,21 @@ class Dao(object):
             ret = s.query(map_point.GpxPoint).options(eagerload_all('gpx_point.*')).all()
             return ret
 
-
-
-
-
 def create_dao(c: config.Config) -> Dao:
     return Dao.create_dao(c)
+
+def get_user(session):
+    def f(**kwargs):
+        id = kwargs["id"]
+        u = session.query(user.User).options(eagerload_all('*')).filter(user.User.id == id).one()
+        session.expunge(u)
+        return u
+
+    return f
+
+def gpx_file_already_saved(session):
+    def f(gpx_file: map_point.GpxFile) -> bool:
+        result = session.query(map_point.GpxFile).filter(map_point.GpxFile.hash == gpx_file.hash).all()
+        return len(result) > 0
+
+    return f

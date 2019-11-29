@@ -1,3 +1,4 @@
+import os
 import datetime
 import dateutil.parser as parser
 import os.path
@@ -59,12 +60,24 @@ def truncate_datetime_to_month(ts: datetime.datetime) -> datetime.datetime:
     return copy
 
 
-def md5_hash(arg):
+def md5_hash(arg: str)-> str:
+    arg = arg.encode('utf-8')
     algo = hashlib.md5()
     algo.update(arg)
-    digest = algo.digest()
-    return str(digest)
+    digest = algo.hexdigest()
+    return digest
 
 
-def create_uuid_str():
+def create_uuid_str() -> str:
     return str(uuid.uuid4())
+
+
+def move_directory(dir_path: str) -> str:
+    dir_path = dir_path.rstrip("/")
+    d = datetime_to_string(now()).replace(" ", "_").replace(":", "-").replace(".", "-")
+    base_path, tail = os.path.split(dir_path)
+    tail_name = tail + "-" + d
+    move_to = os.path.join(base_path, tail_name)
+    os.rename(dir_path, move_to)
+    return move_to
+
