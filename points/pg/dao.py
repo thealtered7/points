@@ -8,6 +8,7 @@ from points.model.point_set import PointSet
 import points.model.map_point as map_point
 import points.model.user as user
 from contextlib import contextmanager
+from typing import List
 
 def create_points_engine(c: config.Config):
     connection_string = c.connect_string()
@@ -82,17 +83,27 @@ class Dao(object):
             ret = s.query(map_point.GpxPoint).options(eagerload_all('gpx_point.*')).all()
             return ret
 
+
 def create_dao(c: config.Config) -> Dao:
     return Dao.create_dao(c)
 
+
+def get_all_gpx_files(session):
+    def f() -> List[map_point.GpxFile]:
+        gpx_files = session.query(map_point.GpxFile).all()
+        return gpx_files
+    return f
+
+
 def get_user(session):
-    def f(**kwargs):
+    def f(**kwargs) -> user.User:
         id = kwargs["id"]
         u = session.query(user.User).options(eagerload_all('*')).filter(user.User.id == id).one()
         session.expunge(u)
         return u
 
     return f
+
 
 def gpx_file_already_saved(session):
     def f(gpx_file: map_point.GpxFile) -> bool:

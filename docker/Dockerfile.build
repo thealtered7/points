@@ -1,15 +1,8 @@
 FROM python
 
-RUN apt-get update
-RUN apt-get -y install python3-pip
-RUN pip3 install python-dateutil
-RUN pip3 install psycopg2
-RUN pip3 install sqlalchemy
-RUN pip3 install numpy
-RUN pip3 install matplotlib
-RUN pip3 install xmltodict
-RUN pip3 install geopy
-RUN pip3 install json-logging
+RUN apt-get update && apt-get -y install python3-pip && \
+ pip3 install python-dateutil psycopg2 sqlalchemy numpy matplotlib xmltodict \
+ geopy json-logging nats-python
 
 RUN mkdir -p /opt/points
 COPY ./ /opt/points

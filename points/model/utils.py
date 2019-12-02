@@ -4,6 +4,7 @@ import dateutil.parser as parser
 import os.path
 import hashlib
 import uuid
+import json as js
 
 ISO_8601 = "2008-09-03T20:56:35.450686"
 
@@ -81,3 +82,9 @@ def move_directory(dir_path: str) -> str:
     os.rename(dir_path, move_to)
     return move_to
 
+
+def to_json(ob):
+    """to_json takes an argument and calls to_json on it"""
+    json_data = ob.to_json_dict()
+    json_string = js.dumps(json_data, sort_keys=True, indent="\t")
+    return json_string

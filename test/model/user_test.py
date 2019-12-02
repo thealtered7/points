@@ -1,7 +1,6 @@
 import unittest
 import points.model.user as user
 import points.model.utils as utils
-import points.model.json as p_json
 
 
 class MapPointTest(unittest.TestCase):
@@ -11,7 +10,7 @@ class MapPointTest(unittest.TestCase):
                       last_name="Keene",
                       uuid=utils.create_uuid_str())
 
-        json_data = p_json.to_json(p)
+        json_data = utils.to_json(p)
         self.assertTrue(json_data is not None)
         user2 = user.User.from_json(json_data)
         self.assertEqual(p.id, user2.id)

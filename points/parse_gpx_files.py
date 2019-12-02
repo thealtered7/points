@@ -10,12 +10,10 @@ logging_utils.init()
 logger = logging_utils.create_logger("parse_gpx_files")
 
 
-from points.model.json import to_json
-
 """This file parses a directory of gpx files and saves them to postgres."""
 def create_output_fun(path: str):
     def f(gpx_file: map_point.GpxFile):
-        json = to_json(gpx_file)
+        json = utils.to_json(gpx_file)
         user_id = gpx_file.user_id
         user_dir = "{path}/{user_id}".format(path=path, user_id=user_id)
         if not os.path.exists(user_dir):

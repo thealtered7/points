@@ -1,7 +1,6 @@
 import points.pg.dao as dao_module
 import points.pg.config as dao_config
 import os
-import points.model.json as json
 import points.model.point as point
 import points.model.point_set as point_set
 import points.model.utils as utils
@@ -29,7 +28,7 @@ def main():
 
     ps = dao.save_or_update_point_set(ps)
     ps = dao.get_point_set_by_id(ps.id)
-    print(json.to_json(ps))
+    print(utils.to_json(ps))
 
 
 

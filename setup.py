@@ -106,7 +106,6 @@ setup(
         # that you indicate whether you support Python 2, Python 3 or both.
         # These classifiers are *not* checked by 'pip install'. See instead
         # 'python_requires' below.
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
@@ -133,7 +132,7 @@ setup(
     # and refuse to install the project if the version does not match. If you
     # do not support Python 2, you can simplify this to '>=3.5' or similar, see
     # https://packaging.python.org/guides/distributing-packages-using-setuptools/#python-requires
-    python_requires='>=3.5, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4',
+    python_requires='>=3.6, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4',
 
     # This field lists other packages that your project depends on to run.
     # Any package you put here will be installed by pip when your project is
@@ -184,7 +183,8 @@ setup(
          'hello_points=points.hello_points:main',
          'hello_postgres=points.hello_postgres:main',
          'hello_sqlalchemy=points.hello_sqlalchemy:main',
-         'parse_gpx_files=points.parse_gpx_files:main'
+         'parse_gpx_files=points.parse_gpx_files:main',
+         'pg_pull_nats_push=points.pg_pull_nats_push:main'
     ],
     },
 

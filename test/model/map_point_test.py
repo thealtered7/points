@@ -1,7 +1,6 @@
 import unittest
 import points.model.map_point as map_point
 import points.model.utils as utils
-import points.model.json as p_json
 
 
 class MapPointTest(unittest.TestCase):
@@ -16,7 +15,7 @@ class MapPointTest(unittest.TestCase):
         p.course = 34.43
         p.time = utils.now()
 
-        json = p_json.to_json(p)
+        json = utils.to_json(p)
 
         p2 = map_point.GpxPoint.from_json_string(json)
 
@@ -54,7 +53,7 @@ class GpxFileTest(unittest.TestCase):
         })
         g.points = [p]
 
-        g2 = map_point.GpxFile.from_json_string(p_json.to_json(g))
+        g2 = map_point.GpxFile.from_json_string(utils.to_json(g))
 
         self.assertDictEqual(g.to_json_dict(), g2.to_json_dict())
 
