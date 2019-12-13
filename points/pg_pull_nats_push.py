@@ -26,6 +26,7 @@ def publish_gpx_files(client: pynats.NATSClient, files: List[map_point.GpxFile])
         logger.info("publishing file",
                     extra=logging_utils.wrap_props({"file_name": f.name,
                                                     "file_number": i}))
+
         json_payload = utils.to_json(f)
         client.publish(subject=publisher_name, payload=json_payload.encode('utf8'))
 
