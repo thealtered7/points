@@ -1,14 +1,15 @@
 import json
 import points.model.base as base
-import points.model.utils as utils
-import points.model.user as user
+import points.utils as utils
 from sqlalchemy import Column, Integer, Float, ForeignKey, TIMESTAMP, String
 from sqlalchemy.orm import relationship, backref
 import xmltodict
 import os
 import collections
+import typing
 
 Base = base.get_base()
+
 
 class GpxPoint(Base):
     __tablename__ = "gpx_point"
@@ -34,7 +35,8 @@ class GpxPoint(Base):
             "gpx_file_id": self.gpx_file_id,
         }
 
-    def from_dict(data):
+    @staticmethod
+    def from_dict(data: typing.Dict):
         p = GpxPoint()
         try:
             p.id = data["id"]
@@ -54,7 +56,8 @@ class GpxPoint(Base):
 
         return p
 
-    def from_json_string(data):
+    @staticmethod
+    def from_json_string(data: str):
         dictionary = json.loads(data)
         p = GpxPoint.from_dict(dictionary)
         return p
@@ -67,6 +70,58 @@ class GpxPoint(Base):
         return self.__repr__()
 
 
+class GpxFlatPoint(object):
+    file_id = None
+    file_name = None
+    file_gpx_timestamp = None
+    file_parsed_time = None
+    file_hash = None
+    user_id = None
+    id = None
+    latitude = None
+    longitude = None
+    elevation = None
+    course = None
+    time = None
+
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+    def to_json_dict(self) -> typing.Dict:
+        return {
+            "file_id": self.file_id,
+            "file_name": self.file_name,
+            "file_gpx_timestamp": utils.datetime_to_string(self.file_gpx_timestamp),
+            "file_parsed_time": utils.datetime_to_string(self.file_parsed_time),
+            "file_hash": self.file_hash,
+            "file_user_id": self.file_user_id,
+            "id": self.id,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "elevation": self.elevation,
+            "course": self.course,
+            "time": utils.datetime_to_string(self.time)
+        }
+
+    @staticmethod
+    def from_dict(data: typing.Dict):
+        d = data
+        date_keys = ["file_gpx_timestamp", "file_parsed_time", "time"]
+        for k in date_keys:
+            try:
+                d[k] = utils.string_to_datetime(d[k])
+            except KeyError:
+                d[k] = None
+
+        return GpxFlatPoint(**d)
+
+    @staticmethod
+    def from_json_string(arg: str):
+        dictionary = json.loads(arg)
+        return GpxFlatPoint.from_dict(dictionary)
+
+
 class GpxFile(Base):
     __tablename__ = "gpx_file"
     id = Column(Integer, primary_key=True)
@@ -76,7 +131,6 @@ class GpxFile(Base):
     hash = Column(String, nullable=True)
     points = relationship(GpxPoint, backref=backref('gpx_point', uselist=True, cascade="delete,all"))
     user_id = Column(Integer, ForeignKey('users.uuid'))
-
 
     def __init__(self):
         Base.__init__(self)
@@ -92,6 +146,7 @@ class GpxFile(Base):
             "hash": self.hash
         }
 
+    @staticmethod
     def from_dict(data):
         gpx_file = GpxFile()
         try:
@@ -108,6 +163,7 @@ class GpxFile(Base):
 
         return gpx_file
 
+    @staticmethod
     def from_json_string(data):
         dictionary = json.loads(data)
         p = GpxFile.from_dict(dictionary)
@@ -115,6 +171,27 @@ class GpxFile(Base):
 
     def num_points(self):
         return len(self.points)
+
+    def flatten_points(self) -> typing.Iterable[GpxFlatPoint]:
+        for p in self.points:
+            flat_point = GpxFlatPoint()
+            flat_point.file_id = self.id
+            flat_point.file_gpx_timestamp = self.gpx_timestamp
+            flat_point.file_parsed_time = self.parsed_time
+            flat_point.file_hash = self.hash
+            flat_point.file_name = self.name
+            flat_point.id = p.id
+            flat_point.elevation = p.elevation
+            flat_point.latitude = p.latitude
+            flat_point.longitude = p.longitude
+            flat_point.course = p.course
+            flat_point.time = p.time
+            yield flat_point
+
+
+
+
+
 
 def find_gpx_files(path):
     gpx_paths = []

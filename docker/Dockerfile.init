@@ -1,4 +1,0 @@
-FROM python3
-
-COPY ../* /opt/points
-

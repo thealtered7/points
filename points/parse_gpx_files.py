@@ -3,7 +3,7 @@ import os
 import points.model.map_point as map_point
 import points.pg.dao as dao_module
 import points.pg.config as dao_config
-import points.model.utils as utils
+import points.utils as utils
 import points.logging_utils as logging_utils
 
 logging_utils.init()

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PGHOST=localhost
+PGHOST=172.17.0.3
 PGUSER=postgres
 PGPASSWORD=fart
 PGDATABASE=points

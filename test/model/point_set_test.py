@@ -1,6 +1,6 @@
 import points.model.point as point
 import points.model.point_set as point_set
-import points.model.utils as point_utils
+import points.utils as point_utils
 import unittest
 
 

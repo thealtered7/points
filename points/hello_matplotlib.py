@@ -29,6 +29,5 @@ def main():
     plot_point_set(point_set)
 
 
-
 if __name__ == "__main__":
     main()

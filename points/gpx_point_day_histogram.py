@@ -1,9 +1,7 @@
 import points.model.map_point as map_point
 import points.pg.dao as dao
-import numpy as np
-import points.model.utils as utils
+import points.utils as utils
 import collections
-import matplotlib
 import matplotlib.pyplot as plt
 
 def output_date_histogram(counter: collections.Counter):

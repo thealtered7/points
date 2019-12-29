@@ -3,7 +3,7 @@ import points.pg.config as dao_config
 import os
 import points.model.point as point
 import points.model.point_set as point_set
-import points.model.utils as utils
+import points.utils as utils
 import random
 
 def create_random_points(num_points, scale=100):

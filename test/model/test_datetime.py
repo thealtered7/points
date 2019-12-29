@@ -1,5 +1,5 @@
 import unittest
-import points.model.utils as point_utils
+import points.utils as point_utils
 
 
 class TestDatetime(unittest.TestCase):

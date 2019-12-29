@@ -1,6 +1,6 @@
 import unittest
 import points.model.user as user
-import points.model.utils as utils
+import points.utils as utils
 
 
 class MapPointTest(unittest.TestCase):

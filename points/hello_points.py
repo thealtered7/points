@@ -3,7 +3,7 @@ import random
 
 import points.model.point_set as ps
 import points.model.point as p
-import points.model.utils as point_utils
+import points.utils as point_utils
 
 
 def main():

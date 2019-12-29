@@ -1,7 +1,7 @@
 import unittest
 import unittest.mock as mock
 import os
-import points.model.utils as utils
+import points.utils as utils
 
 
 class UtilsTest(unittest.TestCase):

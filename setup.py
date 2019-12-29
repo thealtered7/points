@@ -125,7 +125,7 @@ setup(
     #
     #py_modules=["points"],
     #
-    packages=['points', 'points.model', 'points.pg'],
+    packages=['points', 'points.model', 'points.pg', 'points.nats'],
 
     # Specify which Python versions you support. In contrast to the
     # 'Programming Language' classifiers above, 'pip install' will check this
@@ -184,7 +184,8 @@ setup(
          'hello_postgres=points.hello_postgres:main',
          'hello_sqlalchemy=points.hello_sqlalchemy:main',
          'parse_gpx_files=points.parse_gpx_files:main',
-         'pg_pull_nats_push=points.pg_pull_nats_push:main'
+         'pg_pull_nats_push=points.pg_pull_nats_push:main',
+         'nats_consume=points.nats_consume:main'
     ],
     },
 

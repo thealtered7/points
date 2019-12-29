@@ -1,9 +1,8 @@
 import unittest
 import xmltodict
 import points.model.map_point as gpx_point
-import json
 import os
-import points.model.utils as utils
+import points.utils as utils
 
 class XmlToDictText(unittest.TestCase):
     def test_xmltodict(self):
