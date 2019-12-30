@@ -3,8 +3,7 @@ import random
 
 import points.model.point_set as ps
 import points.model.point as p
-import points.model.json as p_json
-import points.model.utils as point_utils
+import points.utils as point_utils
 
 
 def main():
@@ -22,7 +21,7 @@ def main():
         point_set.points.append(point)
 
     #sys.stdout.write(str(point_set))
-    sys.stdout.write(p_json.to_json(point_set))
+    sys.stdout.write(point_utils.to_json(point_set))
 
 
 if __name__ == "__main__":

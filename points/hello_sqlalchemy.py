@@ -1,10 +1,9 @@
 import points.pg.dao as dao_module
 import points.pg.config as dao_config
 import os
-import points.model.json as json
 import points.model.point as point
 import points.model.point_set as point_set
-import points.model.utils as utils
+import points.utils as utils
 import random
 
 def create_random_points(num_points, scale=100):
@@ -20,7 +19,7 @@ def create_random_points(num_points, scale=100):
 
 def main():
     config = dao_config.Config.from_env(os.environ)
-    dao = dao_module.Dao.create_dao(config)
+    dao = dao_module.create_dao(config)
 
     ps = point_set.PointSet()
     ps.points = create_random_points(10, 10)
@@ -29,7 +28,7 @@ def main():
 
     ps = dao.save_or_update_point_set(ps)
     ps = dao.get_point_set_by_id(ps.id)
-    print(json.to_json(ps))
+    print(utils.to_json(ps))
 
 
 

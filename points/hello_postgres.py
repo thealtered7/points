@@ -2,7 +2,7 @@ import points.model.point as point
 import points.model.point_set as point_set
 import psycopg2 as pg
 import psycopg2.extensions as pg_extensions
-import points.model.utils as utils
+import points.utils as utils
 import sys
 import random
 import points.pg.config as pg_config

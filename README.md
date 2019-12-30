@@ -68,3 +68,8 @@ SQLAlchemy
 -e "PGDATABASE=points" \
 python-points  hello_sqlalchemy
 
+MATPlotLib
++ Install MatPlotLib and use it to plot one of the test point sets created
+
+UnitTests
++ python3 -m unittest test/gpx/

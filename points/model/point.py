@@ -30,6 +30,7 @@ class Point(Base):
     def to_json_dict(self):
         return {
             "point_set_id": self.point_set_id,
+            "id": self.id,
             "x": self.x,
             "y": self.y,
             "z": self.z
@@ -39,12 +40,17 @@ class Point(Base):
         self.point_set_id = id
         return self
 
+    @staticmethod
     def from_dict(data):
         p = Point()
         p.point_set_id = data["point_set_id"]
         p.x = data["x"]
         p.y = data["y"]
         p.z = data["z"]
+        try:
+            p.id = data["id"]
+        except KeyError:
+            p.id = None
 
         return p
 
@@ -52,3 +58,5 @@ class Point(Base):
         dictionary = json.loads(data)
         p = Point.from_dict(dictionary)
         return p
+
+

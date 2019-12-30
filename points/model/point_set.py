@@ -1,6 +1,5 @@
-import datetime
 import points.model.point as point
-import points.model.utils as p_utils
+import points.utils as p_utils
 import json
 import points.model.base as base
 from sqlalchemy import Column, Integer, String, TIMESTAMP
@@ -15,6 +14,7 @@ class PointSet(Base):
     created = Column(TIMESTAMP, nullable=False)
     name = Column(String, nullable=False)
     points = relationship(point.Point, backref=backref('point', uselist=True, cascade="delete,all"))
+
 
     def __init__(self):
         Base.__init__(self)
